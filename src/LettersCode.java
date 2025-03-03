@@ -3,6 +3,7 @@ String file;
     LettersCode(String file){
         // deciphered code = a word read from file
         //if file not exist create and populate one (maybe make method for it to avoid repeats for version below)
+        decipheredCode = "scot";
     }
 
     LettersCode(){

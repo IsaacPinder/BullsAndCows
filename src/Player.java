@@ -6,6 +6,14 @@ int numberOfCows;
 int codesAttempted;
 int codesDeciphered;
 
+    public Player(String name, int numBull, int numCow, int codesAttempt, int codesDeciph){
+        username = name;
+        numberOfBulls = numBull;
+        numberOfCows = numCow;
+        codesAttempted = codesAttempt;
+        codesDeciphered = codesDeciph;
+    }
+
     void updateBulls(int newBulls) {
       numberOfBulls += newBulls;
     }
