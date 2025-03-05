@@ -1,13 +1,43 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
 public class LettersCode extends SecretCode {
-String file;
-    LettersCode(String file){
-        // deciphered code = a word read from file
-        //if file not exist create and populate one (maybe make method for it to avoid repeats for version below)
-        decipheredCode = "scot";
+
+//usage of"LettersCode" after LettersCode, but you can name it anything and we using it cuz It calls the constructor LettersCode("issac.txt"), which reads the file and prints a random word.
+    //  code ->  LettersCode LettersCode = new LettersCode("issac.txt"); // or new LettersCode("issac.txt");
+
+    // The constructor that generates the actual random code from the file
+    // Reads the file and returns a random word
+    private String getRandomWord(String filename) {
+        ArrayList<String> words = new ArrayList<>();
+        try {
+            Scanner scanner = new Scanner(new File(filename));
+            while (scanner.hasNextLine()) {
+                words.add(scanner.nextLine().toLowerCase());
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            // neat for no file
+            System.out.println("Error: File not found - " + filename);
+            return "Error: No words available";
+        }
+        // this is neat for edge case of no words in the file if the array itself is empty
+        if (words.isEmpty()) {
+            return "Error: No words available";
+        }
+
+        Random random = new Random();
+        return words.get(random.nextInt(words.size())); // Return random word
     }
 
-    LettersCode(){
-    // same as above but no file specified so create one and fill with words(leave for now)
+
+    public LettersCode(String filename) {
+        String decipheredCode = getRandomWord(filename);
+        System.out.println("Deciphered Code: " + decipheredCode); // Just for testing
     }
+
 
 }
