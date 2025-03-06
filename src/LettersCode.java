@@ -21,6 +21,7 @@ public class LettersCode extends SecretCode {
             scanner.close();
         } catch (Exception e) { // Handle errors when file not found
             System.out.println("Error: File not found.");
+            System.exit(1);
         }
         return words;
     }
