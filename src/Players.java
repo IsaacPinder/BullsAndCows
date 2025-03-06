@@ -15,9 +15,13 @@ public class Players {
      // write to file
     }
 
-    public Player findPlayer(Player p) {
+
+    // takes in a name and returns associated player or an error msg and null
+    public Player findPlayer(String name) {
         for (int i = 0; i < allPlayers.size(); i++) {
-            if (allPlayers.get(i) == p) {
+            Player currentPlayer = allPlayers.get(i);
+
+            if (currentPlayer.getName().equals(name)) {
                 return allPlayers.get(i);
             }
         }
