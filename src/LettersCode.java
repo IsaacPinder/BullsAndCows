@@ -1,43 +1,37 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class LettersCode extends SecretCode {
+//lc stands for "LettersCode", but you can name it anything and we using it cuz It calls the constructor LettersCode("issac.txt"), which reads the file and prints a random word.
+     //   LettersCode LettersCode = new LettersCode("issac.txt"); // or new LettersCode("issac.txt");
+    public LettersCode(String filename) {
+        ArrayList<String> words = readFile(filename); // Read file into list
+        if (!words.isEmpty()) {
+            String decipheredCode = getRandomWord(words);
+            System.out.println("Deciphered Code: " + decipheredCode);
+        } else {
+            System.out.println("Error: File is empty or not found."); //
+        }
+    }
 
-//usage of"LettersCode" after LettersCode, but you can name it anything and we using it cuz It calls the constructor LettersCode("issac.txt"), which reads the file and prints a random word.
-    //  code ->  LettersCode LettersCode = new LettersCode("issac.txt"); // or new LettersCode("issac.txt");
-
-    // The constructor that generates the actual random code from the file
-    // Reads the file and returns a random word
-    private String getRandomWord(String filename) {
+    private ArrayList<String> readFile(String filename) {
         ArrayList<String> words = new ArrayList<>();
         try {
-            Scanner scanner = new Scanner(new File(filename));
+            Scanner scanner = new Scanner(new java.io.File(filename)); // Read file
             while (scanner.hasNextLine()) {
-                words.add(scanner.nextLine().toLowerCase());
+                words.add(scanner.nextLine().toLowerCase()); // Store words in LOWERCASE ISSSAC
             }
             scanner.close();
-        } catch (FileNotFoundException e) {
-            // neat for no file
-            System.out.println("Error: File not found - " + filename);
-            return "Error: No words available";
+        } catch (Exception e) { // Handle errors when file not found
+            System.out.println("Error: File not found.");
         }
-        // this is neat for edge case of no words in the file if the array itself is empty
-        if (words.isEmpty()) {
-            return "Error: No words available";
-        }
+        return words;
+    }
 
+    // Picks a random word from the arraylist
+    private String getRandomWord(ArrayList<String> words) {
         Random random = new Random();
         return words.get(random.nextInt(words.size())); // Return random word
     }
-
-
-    public LettersCode(String filename) {
-        String decipheredCode = getRandomWord(filename);
-        System.out.println("Deciphered Code: " + decipheredCode); // Just for testing
-    }
-
-
 }
