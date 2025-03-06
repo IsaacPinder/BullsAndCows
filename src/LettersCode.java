@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class LettersCode extends SecretCode {
 //lc stands for "LettersCode", but you can name it anything and we using it cuz It calls the constructor LettersCode("issac.txt"), which reads the file and prints a random word.
-     //   LettersCode LettersCode = new LettersCode("issac.txt"); // or new LettersCode("issac.txt");
+     //   LettersCode LettersCode = new LettersCode("lettercode.txt"); // or new LettersCode("lettercode.txt");
     public LettersCode(String filename) {
         ArrayList<String> words = readFile(filename); // Read file into list
         if (!words.isEmpty()) {
