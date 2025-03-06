@@ -6,6 +6,7 @@ int numberOfCows;
 int codesAttempted;
 int codesDeciphered;
 
+
     public Player(String name, int numBull, int numCow, int codesAttempt, int codesDeciph){
         username = name;
         numberOfBulls = numBull;
@@ -45,5 +46,9 @@ int codesDeciphered;
     int getCodesDeciphered() {
         return codesDeciphered;
     }
+
+    String getName(){ return username;}
+
+
 }
 
