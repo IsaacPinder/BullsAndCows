@@ -2,18 +2,13 @@ import java.util.*;
 
 
 public class LettersCode extends SecretCode {
-    //lc stands for "LettersCode", but you can name it anything and we using it cuz It calls the constructor LettersCode("lettercode.txt"), which reads the file and prints a random word.
-    //   LettersCode LettersCode = new LettersCode("lettercode.txt"); // or new LettersCode("lettercode.txt");
+    // the constructor LettersCode("lettercode.txt"), which reads the file and prints a random word.
+    // new LettersCode("lettercode.txt");
     public LettersCode(String filename) {
         ArrayList<String> words = readFile(filename); // Read file into list
         if (!words.isEmpty()) {
             decipheredCode = getRandomWord(words);
-        } else {
-            System.out.println("Error: File is empty or not found."); //
         }
-
-
-
     }
 
     private ArrayList<String> readFile(String filename) {

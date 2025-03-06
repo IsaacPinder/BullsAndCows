@@ -69,7 +69,7 @@ public class Game {
             NumbersCode numCode = new NumbersCode();
             return numCode.getCode();
         } else {
-            LettersCode letCode = new LettersCode("validWords.txt");
+            LettersCode letCode = new LettersCode("lettercode.txt");
             return letCode.getCode();
         }
     }
