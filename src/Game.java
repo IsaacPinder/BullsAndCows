@@ -29,6 +29,10 @@ public class Game {
     public void playGame() {
         // true while main game loop is operational
         boolean running = true;
+
+        //update player attempt stats
+        currentPlayer.incrementCodesAttempted();
+
         // get code
         String gameCode = requestCode();
         System.out.println("Enter Your guess:\nType 'give up' to show the correct code:");
@@ -42,7 +46,6 @@ public class Game {
             // if input is "give up" display answer and exit game loop
             if (input.equals("give up")){
                 System.out.println("the correct code was: "+ showSolution());
-                currentPlayer.incrementCodesAttempted();
                 running = false;
             }
             else {
@@ -55,7 +58,6 @@ public class Game {
                 // if output is the msg for a correct code then increment player values and exit game
                 if (output.equals("Well Done You Are Right")) {
                     currentPlayer.incrementCodesDeiphered();
-                    currentPlayer.incrementCodesAttempted();
                     running = false;
                 }
             }
