@@ -1,45 +1,57 @@
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-@Test
-public void testRequestLettersCode() {
-    gameModeNum = false;
-    Game LetGame = new Game(JohnDoe,gameModeNum);
-    LetGame.playGame();
+public class GameTest {
 
-    assertNotNull(Game.requestCode(), "Secret code should not be null.");
-    assertTrue(LettersCode.words.Contains(Game.input), "Secret code should be one of the stored words.");
-    assertEquals(1, Player.incrementCodesAttempted(), "Number of secret code attempts should be updated.");
-}
+    @Test
+    public void testRequestCodeLetterMode() {
+        Player player = new Player("John Doe", 0, 0, 0, 0);
+        Game game = new Game(player, false); // false = letter mode
+        String code = game.requestCode();
 
-@Test
-public void testRequestNumbersCode() {
-    gameModeNum = true;
-    Game LetGame = new Game(JohnDoe,gameModeNum);
-    LetGame.playGame();
+        assertNotNull(code, "Code should not be null.");
+        assertTrue(code.matches("[a-zA-Z]+"), "Code should contain only alphabetical characters.");
+        assertEquals(4, code.length(), "Code length should be 4 characters.");
+    }
 
-    assertNotNull(Game.requestCode(), "Secret code should not be null.");
-    assertTrue(Game.input.matches("//d+"), "Secret code should only contain digits.");
-    assertEqual(Game.input.chars().distinct().count(), Game.input.length(), "Secret code should only contain unique digits.");
-    assertEquals(1, Player.incrementCodesAttempted(), "Number of secret code attempts should be updated.");
-}
+    @Test
+    public void testRequestCodeNumberMode() {
+        Player player = new Player("John Doe", 0, 0, 0, 0);
+        Game game = new Game(player, true); // true = number mode
+        String code = game.requestCode();
 
-@Test
-public void testRequestLettersMissingFileCode() {
+        assertNotNull(code, "Code should not be null.");
+        assertTrue(code.matches("\\d+"), "Code should be numeric.");
+        assertEquals(4, code.length(), "Code length should be 4 characters.");
+    }
 
-}
+    @Test
+    public void testRequestLettersMissingFileCode() {
+        Player player = new Player("John Doe", 0, 0, 0, 0);
 
-@Test
-public void testPlayerEntersGuess() {
+        String invalidFilePath = "cs207-main/invalid.txt";
 
-}
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+                LettersCode letCode = new LettersCode(invalidFilePath);
+                letCode.getCode();
+        });
 
-@Test
-public void testPlayerEntersCorrectGuess() {
+        assertEquals("File not found: invalid.txt", exception.getMessage(), "The file was not found.");
+    }
 
-}
+    @Test
+    public void testPlayerEntersGuess() {
 
-@Test
-public void testInvalidGuessLength() {
+    }
+
+    @Test
+    public void testPlayerEntersCorrectGuess() {
+
+    }
+
+    @Test
+    public void testInvalidGuessLength() {
+
+    }
 
 }
