@@ -16,9 +16,9 @@ public class GameTest {
 
     @Test
     public void testRequestCodeNumberMode() {
-        Player player = new Player("John Doe", 0, 0, 0, 0);
+        Player player = new Player("John Doe", 0, 0, 0, 0); //initialize object called player with its initial values
         Game game = new Game(player, true); // true = number mode
-        String code = game.requestCode();
+        String code = game.requestCode(); // provides the game code for its respective version
 
         assertNotNull(code, "Code should not be null.");
         assertTrue(code.matches("\\d+"), "Code should be numeric.");
@@ -30,6 +30,7 @@ public class GameTest {
         String invalidFilePath = "cs207-main/invalid.txt";
         boolean exceptionThrown = false;
 
+        // handles the exception thrown
         try {
             new LettersCode(invalidFilePath);
         } catch (RuntimeException e) {
