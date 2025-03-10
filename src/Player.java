@@ -3,14 +3,18 @@ public class Player {
     String username;
     int numberOfBulls;
     int numberOfCows;
+
+    int numCharTotal;
     int codesAttempted;
     int codesDeciphered;
 
 
-    public Player(String name, int numBull, int numCow, int codesAttempt, int codesDeciph){
+    public Player(String name, int numBull, int numCow, int numChar, int codesAttempt, int codesDeciph){
         username = name;
         numberOfBulls = numBull;
         numberOfCows = numCow;
+        numCharTotal = numChar;
+
         codesAttempted = codesAttempt;
         codesDeciphered = codesDeciph;
     }
@@ -22,6 +26,11 @@ public class Player {
     void updateCows(int newCows) {
         numberOfCows += newCows;
     }
+
+    void updateNumCharTotal(int newChar) {
+        numCharTotal += newChar;
+    }
+
 
     void incrementCodesAttempted() {
         codesAttempted += 1;
@@ -38,6 +47,8 @@ public class Player {
     int getCows() {
         return numberOfCows;
     }
+
+    int getNumCharTotal(){return numCharTotal;}
 
     int getCodesAttempted() {
         return codesAttempted;

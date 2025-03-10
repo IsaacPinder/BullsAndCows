@@ -30,6 +30,9 @@ public class Game {
         // true while main game loop is operational
         boolean running = true;
 
+        // increment attempted code
+        currentPlayer.incrementCodesAttempted();
+
         // get code
         String gameCode = requestCode();
         System.out.println("Enter Your guess:\nType 'give up' to show the correct code:");
@@ -53,7 +56,9 @@ public class Game {
                 System.out.println(output);
 
                 // if output is the msg for a correct code, exit game
+                // codes is incremented within countBullCows
                 if (output.equals("Well Done You Are Right")) {
+                    currentPlayer.incrementCodesDeciphered();
                     running = false;
                 }
             }
@@ -167,12 +172,12 @@ public class Game {
             // increments player values
             currentPlayer.updateCows(numcows);
             currentPlayer.updateBulls(numbulls);
+            currentPlayer.updateNumCharTotal(4);
+
             if (numbulls == 4){
-                currentPlayer.incrementCodesDeciphered(); // if player gets correct code, update their deciphered codes.
                 return("Well Done You Are Right");
             }
             else{
-                currentPlayer.incrementCodesAttempted(); // if player gets wrong code, update their attempted codes.
                 return ("Bulls: " + numbulls + " Cows: " + numcows);
             }
         }
