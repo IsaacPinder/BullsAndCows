@@ -27,7 +27,7 @@ public class Player {
         codesAttempted += 1;
     }
 
-    void incrementCodesDeiphered() {
+    void incrementCodesDeciphered() {
         codesDeciphered += 1;
     }
 
