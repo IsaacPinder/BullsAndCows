@@ -1,10 +1,11 @@
 import java.util.*  ;
 public class Player {
-String username;
-int numberOfBulls;
-int numberOfCows;
-int codesAttempted;
-int codesDeciphered;
+    String username;
+    int numberOfBulls;
+    int numberOfCows;
+    int codesAttempted;
+    int codesDeciphered;
+
 
     public Player(String name, int numBull, int numCow, int codesAttempt, int codesDeciph){
         username = name;
@@ -15,18 +16,18 @@ int codesDeciphered;
     }
 
     void updateBulls(int newBulls) {
-      numberOfBulls += newBulls;
+        numberOfBulls += newBulls;
     }
 
     void updateCows(int newCows) {
-      numberOfCows += newCows;
+        numberOfCows += newCows;
     }
 
     void incrementCodesAttempted() {
         codesAttempted += 1;
     }
 
-    void incrementCodesDeciphered() {
+    void incrementCodesDeiphered() {
         codesDeciphered += 1;
     }
 
@@ -45,4 +46,9 @@ int codesDeciphered;
     int getCodesDeciphered() {
         return codesDeciphered;
     }
+
+    String getName(){ return username;}
+
 }
+
+
