@@ -30,9 +30,6 @@ public class Game {
         // true while main game loop is operational
         boolean running = true;
 
-        //update player attempt stats
-        currentPlayer.incrementCodesAttempted();
-
         // get code
         String gameCode = requestCode();
         System.out.println("Enter Your guess:\nType 'give up' to show the correct code:");
@@ -52,12 +49,11 @@ public class Game {
                 // enter guess does error checks on guess for both num and letter modes
                 // will return a string with either an error msg or the Bulls&Cows
                 String output = enterGuess(input);
-                // print ouput from enter guess
+                // print output from enter guess
                 System.out.println(output);
 
-                // if output is the msg for a correct code then increment player values and exit game
+                // if output is the msg for a correct code, exit game
                 if (output.equals("Well Done You Are Right")) {
-                    currentPlayer.incrementCodesDeiphered();
                     running = false;
                 }
             }
@@ -71,7 +67,7 @@ public class Game {
             NumbersCode numCode = new NumbersCode();
             return numCode.getCode();
         } else {
-            LettersCode letCode = new LettersCode("lettercode.txt");
+            LettersCode letCode = new LettersCode("cs207-main/lettercode.txt");
             return letCode.getCode();
         }
     }
@@ -80,7 +76,7 @@ public class Game {
         // if number game mode
         if (gameModeNum) {
             if (guess.length() != 4) {
-                return ("Guess must be 4 charcters long");
+                return ("Guess must be 4 characters long");
             } else if (!isNumeric(guess)) {
                 return ("Guess must be numeric characters");
             } else if (repeatChar(guess)) {
@@ -92,7 +88,7 @@ public class Game {
         // if letters game mode
         else {
             if (guess.length() != 4) {
-                return ("Guess must be 4 charcters long");
+                return ("Guess must be 4 characters long");
             } else if (!isalpha(guess)) {
                 return ("Guess must be alphabetical characters");
             } else if (repeatChar(guess)) {
@@ -172,9 +168,11 @@ public class Game {
             currentPlayer.updateCows(numcows);
             currentPlayer.updateBulls(numbulls);
             if (numbulls == 4){
+                currentPlayer.incrementCodesDeciphered(); // if player gets correct code, update their deciphered codes.
                 return("Well Done You Are Right");
             }
             else{
+                currentPlayer.incrementCodesAttempted(); // if player gets wrong code, update their attempted codes.
                 return ("Bulls: " + numbulls + " Cows: " + numcows);
             }
         }

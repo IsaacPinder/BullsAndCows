@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.*;
 
 
@@ -6,9 +7,10 @@ public class LettersCode extends SecretCode {
     // new LettersCode("lettercode.txt");
     public LettersCode(String filename) {
         ArrayList<String> words = readFile(filename); // Read file into list
-        if (!words.isEmpty()) {
-            decipheredCode = getRandomWord(words);
+        if (words.isEmpty()) {
+            throw new RuntimeException("Word list is empty."); // Handles empty file
         }
+        decipheredCode = getRandomWord(words);
     }
 
     private ArrayList<String> readFile(String filename) {
@@ -19,9 +21,8 @@ public class LettersCode extends SecretCode {
                 words.add(scanner.nextLine().toLowerCase()); // Store words in LOWERCASE
             }
             scanner.close();
-        } catch (Exception e) { // Handle errors when file not found
-            System.out.println("Error: File not found.");
-            System.exit(1);
+        } catch (FileNotFoundException e) { // Handle errors when file not found
+            throw new RuntimeException("Error: File not found.");
         }
         return words;
     }
