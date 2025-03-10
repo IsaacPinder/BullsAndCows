@@ -67,7 +67,7 @@ public class Game {
             NumbersCode numCode = new NumbersCode();
             return numCode.getCode();
         } else {
-            LettersCode letCode = new LettersCode("cs207-main/lettercode.txt");
+            LettersCode letCode = new LettersCode("lettercode.txt");
             return letCode.getCode();
         }
     }
