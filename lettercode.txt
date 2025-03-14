@@ -12,4 +12,4 @@ ramp
 shot
 wail
 lick
-dead
+deck
