@@ -1,11 +1,14 @@
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayInputStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
 
     @Test
     public void testRequestCodeLetterMode() {
-        Player player = new Player("John Doe", 0, 0, 0, 0,0);
+        Player player = new Player("John Doe", 0, 0, 0, 0,0,"Empty",false);
         Game game = new Game(player, false); // false = letter mode
         String code = game.requestCode();
 
@@ -16,7 +19,7 @@ public class GameTest {
 
     @Test
     public void testRequestCodeNumberMode() {
-        Player player = new Player("John Doe", 0, 0, 0, 0,0); //initialize object called player with its initial values
+        Player player = new Player("John Doe", 0, 0, 0, 0,0,"Empty",false); //initialize object called player with its initial values
         Game game = new Game(player, true); // true = number mode
         String code = game.requestCode(); // provides the game code for its respective version
 
@@ -44,30 +47,44 @@ public class GameTest {
 
     @Test
     public void testPlayerEntersGuess() {
-        Player player = new Player("John Doe", 0, 0, 0, 0,0);
+        Player player = new Player("John Doe", 0, 0, 0, 0,0,"Empty",false);
         Game game = new Game(player, true);
         game.code = "1234";
         String res = game.enterGuess("1243");
         assertNotNull(res, "This result should not be null.");
+
+
+
         assertEquals("Bulls: 2 Cows: 2", res, "The result should return the correct number of Bulls and Cows.");
+        // play game with correct code so that it ends
+        // this line adds "1234" as sytem input
+        System.setIn(new ByteArrayInputStream("1234\n".getBytes()));
+        game.playGame();
+
         assertEquals(1, player.getCodesAttempted(), "Player's attempted codes count should be incremented.");
     }
 
     @Test
     public void testPlayerEntersCorrectGuess() {
-        Player player = new Player("John Doe", 0, 0, 0, 0,0);
+        Player player = new Player("John Doe", 0, 0, 0, 0,0,"Empty",false);
         Game game = new Game(player, true);
         game.code = "1234";
 
         String res = game.enterGuess("1234");
         assertNotNull(res, "This result should not be null");
         assertEquals("Well Done You Are Right", res, "The result should indicate the correct guess.");
+
+        // play game with correct code so that it ends
+        // this line adds "1234" as sytem input
+        System.setIn(new ByteArrayInputStream("1234\n".getBytes()));
+        game.playGame();
+
         assertEquals(1, player.getCodesDeciphered(), "Player's deciphered codes count should be incremented.");
     }
 
     @Test
     public void testInvalidGuessLength() {
-        Player player = new Player("John Doe", 0, 0, 0, 0,0);
+        Player player = new Player("John Doe", 0, 0, 0, 0,0,"Empty",false);
         Game game = new Game(player, true);
         game.code = "1234";
 

@@ -4,6 +4,7 @@ import java.util.* ;
 // therefore Game will not print directly but return strings that the Ui will display
 public class Game {
     Player currentPlayer;
+
     // connects player to game for saving/load
     Map<Player, Game> playerGameMapping = new HashMap<Player, Game>();
 
@@ -33,9 +34,7 @@ public class Game {
         // increment attempted code
         currentPlayer.incrementCodesAttempted();
 
-        // get code
-        String gameCode = requestCode();
-        System.out.println("Enter Your guess:\nType 'give up' to show the correct code:");
+        System.out.println("Enter Your guess:\nType 'give up' to show the correct code\nType 'save code' to save the current code:");
 
         while (running == true) {
             // take in input from user
@@ -47,6 +46,23 @@ public class Game {
             if (input.equals("give up")){
                 System.out.println("the correct code was: "+ showSolution());
                 running = false;
+            }
+            else if(input.equals("save code")) {
+                if (currentPlayer.savedCode.equals("Empty")) {
+                    currentPlayer.saveCode(code, gameModeNum);
+                    System.out.println("current code saved");
+                    running = false;
+                } else {
+                    System.out.println("Do you want to overwrite your existing saved code\ninput 'yes' to confirm, input anyting else to cancel");
+                    String yesinput = new java.util.Scanner(System.in).nextLine();
+                    if (yesinput.toLowerCase().equals("yes")) {
+                        currentPlayer.saveCode(code, gameModeNum);
+                        System.out.println("current code overwrote old saved code");
+                        running = false;
+                    } else {
+                        System.out.println("saving code aborted");
+                    }
+                }
             }
             else {
                 // enter guess does error checks on guess for both num and letter modes
@@ -104,13 +120,69 @@ public class Game {
         }
     }
 
-        public void saveGame () {
-// Writes playergameMapping to file
-        }
+    //is almost identical to the main play game loop but takes code as parameter instead of generating it
+    //also removes incrementing attempts so that attempts is not incremented again for a game you're loading
+    //also removes saved code upon getting it right
+        public void loadGame (String loadedGameCode) {
 
-        public void loadGame () {
-// reads playergameMapping from file
-        }
+        // set code atribute to loaded code
+            code = loadedGameCode;
+
+            // true while main game loop is operational
+            boolean running = true;
+            System.out.println(currentPlayer.getName()+"'s saved Code has been loaded");
+            System.out.println("Enter Your guess:\nType 'give up' to show the correct code\nType 'save code' to save the current code:");
+
+            while (running == true) {
+                // take in input from user
+                String input = new java.util.Scanner(System.in).nextLine();
+                // set input to lowercase to simplify comparison
+                input = input.toLowerCase();
+
+                // if input is "give up" display answer and exit game loop
+                if (input.equals("give up")){
+                    System.out.println("the correct code was: "+ showSolution());
+                    //upon getting code right removes saved code
+                    currentPlayer.saveCode("Empty",false);
+                    running = false;
+                }
+                else if(input.equals("save code")){
+                    if(currentPlayer.savedCode.equals("Empty")){
+                        currentPlayer.saveCode(code,gameModeNum);
+                        System.out.println("current code saved");
+                        running = false;
+                    }
+                    else{
+                        System.out.println("Do you want to overwrite your existing saved code\ninput 'yes' to confirm, input anyting else to cancel");
+                        String yesinput = new java.util.Scanner(System.in).nextLine();
+                        if(yesinput.toLowerCase().equals("yes")){
+                            currentPlayer.saveCode(code,gameModeNum);
+                            System.out.println("current code overwrote old saved code");
+                            running = false;
+                        }
+                        else{
+                            System.out.println("saving code aborted");
+                        }
+                    }
+
+                }
+                else {
+                    // enter guess does error checks on guess for both num and letter modes
+                    // will return a string with either an error msg or the Bulls&Cows
+                    String output = enterGuess(input);
+                    // print output from enter guess
+                    System.out.println(output);
+
+                    // if output is the msg for a correct code, exit game
+                    // codes is incremented within countBullCows
+                    if (output.equals("Well Done You Are Right")) {
+                        currentPlayer.incrementCodesDeciphered();
+                        //upon getting code right removes saved code
+                        currentPlayer.saveCode("Empty",false);
+                        running = false;
+                    }
+                }
+            }        }
 
         public String showSolution () {
 // Shows the correct code

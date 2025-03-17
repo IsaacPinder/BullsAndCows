@@ -3,13 +3,16 @@ public class Player {
     String username;
     int numberOfBulls;
     int numberOfCows;
-
     int numCharTotal;
     int codesAttempted;
     int codesDeciphered;
 
+    String savedCode;
 
-    public Player(String name, int numBull, int numCow, int numChar, int codesAttempt, int codesDeciph){
+    boolean savedCodeisNum;
+
+
+    public Player(String name, int numBull, int numCow, int numChar, int codesAttempt, int codesDeciph, String savCode, boolean savCodeNum){
         username = name;
         numberOfBulls = numBull;
         numberOfCows = numCow;
@@ -17,6 +20,9 @@ public class Player {
 
         codesAttempted = codesAttempt;
         codesDeciphered = codesDeciph;
+
+        savedCode = savCode;
+        savedCodeisNum = savCodeNum;
     }
 
     void updateBulls(int newBulls) {
@@ -59,6 +65,14 @@ public class Player {
     }
 
     String getName(){ return username;}
+
+    void saveCode(String code, boolean codeTypeNum){
+        savedCode = code;
+        savedCodeisNum = codeTypeNum;
+    }
+
+    String getSavedCode(){return savedCode;}
+    boolean getSavedCodeIsNum(){return savedCodeisNum;}
 
 }
 

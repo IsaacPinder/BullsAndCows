@@ -19,7 +19,7 @@ public class Players {
                 // splitting up the line by using commas to store the player data
                 String[] dataToLoad = line.split(",");
                 // Ensure line has correct amount of values
-                if (dataToLoad.length == 6) {
+                if (dataToLoad.length == 8) {
                     //loading in all the variables values in the file
                     String username = dataToLoad[0];
                     int numberOfBulls = Integer.parseInt(dataToLoad[1]);
@@ -27,13 +27,18 @@ public class Players {
                     int numCharTotal = Integer.parseInt(dataToLoad[3]);
                     int codesAttempted = Integer.parseInt(dataToLoad[4]);
                     int codesDeciphered = Integer.parseInt(dataToLoad[5]);
+                    String savedCode = dataToLoad[6];
+                    boolean saveCodeIsNum = Boolean.parseBoolean(dataToLoad[7]);
+
+
                     // Create a new Player object with loaded data and add it to the arraylist allPlayers
-                    allPlayers.add(new Player(username, numberOfBulls, numberOfCows, numCharTotal, codesAttempted, codesDeciphered));
+                    allPlayers.add(new Player(username, numberOfBulls, numberOfCows, numCharTotal, codesAttempted, codesDeciphered,savedCode,saveCodeIsNum));
                 }
             }
         } catch (IOException e) {
             //handles issue of not being able to read and then load
-            System.out.println("Error reading the file: " + e.getMessage());
+            throw new RuntimeException("Error: players File not found.");
+
         }
     }
 
@@ -52,15 +57,17 @@ public class Players {
                         p.getCows() + "," +
                         p.getNumCharTotal() + "," +
                         p.getCodesAttempted() + "," +
-                        p.getCodesDeciphered());
+                        p.getCodesDeciphered() + "," +
+                        p.getSavedCode() + "," +
+                        p.getSavedCodeIsNum());
                 // Move to the next line after writiing all the players data
                 writeFile.newLine();
             }
             // print statement to show the write was done properly
-            System.out.println("Players saved successfully.");
+            System.out.println("Players saved successfully to file.");
         } catch (IOException e) {
             // error message when program unable to save the players data
-            System.out.println("Error saving players: " + e.getMessage());
+            throw new RuntimeException("Error: players File not found.");
         }
     }
 
