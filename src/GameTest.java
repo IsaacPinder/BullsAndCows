@@ -137,7 +137,7 @@ public class GameTest {
     @Test
     public void testForNoBulls() {
         Player player = new Player("TestPlayer", 0, 0, 0, 0, 0, "Empty", false);
-        Game game = new Game(player, true);
+        Game game = new Game(player, false);
         game.code = "abcdefgh";
         String res = game.enterGuess("abcdefgh"); //no bulls
 
