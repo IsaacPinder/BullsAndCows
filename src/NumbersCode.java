@@ -15,7 +15,7 @@ public class NumbersCode extends SecretCode {
 
                 // this process builds the 4-digit code sequentially without the overhead of creating a new string at every step.
                 StringBuilder code = new StringBuilder();
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 8; i++) {
                         code.append(num.get(i));
                 }
                 return code.toString();

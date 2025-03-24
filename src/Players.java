@@ -86,5 +86,33 @@ public class Players {
         return null;
     }
 
+    void sortPlayers(){
+
+    }
+
+    void topTen(){
+     int count = 0;
+        for (int i = 0; i < allPlayers.size() && i < 10; i++) {
+
+           System.out.println((i + 1)  + " name : " + allPlayers.get(i).getName() + " codes deciphered: " + allPlayers.get(i).getCodesDeciphered());
+           count ++;
+        }
+
+        for (int i = count; i < 10 ; i++) {
+            System.out.println((i + 1) + " name :                 codes deciphered: ");
+        }
+
+        System.out.println();
+
+    }
+
+   int getArraySize(){
+      return  allPlayers.size();
+   }
+
+   Player getPlayer(int i){
+        return allPlayers.get(i);
+   }
+
 
 }

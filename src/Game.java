@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.* ;
 
 // Note: Game acts as the middleman between the Ui and other classes
@@ -6,10 +7,10 @@ public class Game {
     Player currentPlayer;
 
     // connects player to game for saving/load
-    Map<Player, Game> playerGameMapping = new HashMap<Player, Game>();
-
+    boolean[] hintAtChar = new boolean[8];
+    String lastGuess = "--------";
     //true if gamemode is number else false
-    Boolean gameModeNum;
+    boolean gameModeNum;
     String code;
 
     public Game(Player p, Boolean codeType) {
@@ -20,7 +21,16 @@ public class Game {
     }
 
 
-    public void getHint() {
+    public void getHint(String input) {
+        for (int i = 0; i < 8; i++) {
+            if(code.charAt(i) != lastGuess.charAt(i) && hintAtChar[i] != true){
+                System.out.println("The correct BULL for charcter " + (i+1) + " is : " + code.charAt(i));
+                hintAtChar[i] = true;
+                return;
+            }
+        }
+
+        System.out.println("You have all the BULLS YOU NEED");
     }
 
     public Player loadPlayer() {
@@ -34,7 +44,7 @@ public class Game {
         // increment attempted code
         currentPlayer.incrementCodesAttempted();
 
-        System.out.println("Enter Your guess:\nType 'give up' to show the correct code\nType 'save code' to save the current code:");
+        System.out.println("Enter Your guess:\nType 'give up' to show the correct code\nType 'save code' to save the current code:\ninput 'hint' to get hint:");
 
         while (running == true) {
             // take in input from user
@@ -53,7 +63,7 @@ public class Game {
                     System.out.println("current code saved");
                     running = false;
                 } else {
-                    System.out.println("Do you want to overwrite your existing saved code\ninput 'yes' to confirm, input anyting else to cancel");
+                    System.out.println("Do you want to overwrite your existing saved code\ninput 'yes' to confirm, input anyting else to cancel \n");
                     String yesinput = new java.util.Scanner(System.in).nextLine();
                     if (yesinput.toLowerCase().equals("yes")) {
                         currentPlayer.saveCode(code, gameModeNum);
@@ -63,6 +73,9 @@ public class Game {
                         System.out.println("saving code aborted");
                     }
                 }
+            }
+            else if (input.equals("hint")) {
+                getHint(input);
             }
             else {
                 // enter guess does error checks on guess for both num and letter modes
@@ -96,25 +109,27 @@ public class Game {
     public String enterGuess(String guess) {
         // if number game mode
         if (gameModeNum) {
-            if (guess.length() != 4) {
-                return ("Guess must be 4 characters long");
+            if (guess.length() != 8) {
+                return ("Guess must be 8 characters long");
             } else if (!isNumeric(guess)) {
                 return ("Guess must be numeric characters");
             } else if (repeatChar(guess)) {
                 return ("Guess must not have repeated characters");
             } else {
+                lastGuess = guess;
                 return (countBullsCows(guess));
             }
         }
         // if letters game mode
         else {
-            if (guess.length() != 4) {
-                return ("Guess must be 4 characters long");
+            if (guess.length() != 8) {
+                return ("Guess must be 8 characters long");
             } else if (!isalpha(guess)) {
                 return ("Guess must be alphabetical characters");
             } else if (repeatChar(guess)) {
                 return ("Guess must not have repeated characters");
             } else {
+                lastGuess = guess;
                 return (countBullsCows(guess));
             }
         }
@@ -131,7 +146,7 @@ public class Game {
             // true while main game loop is operational
             boolean running = true;
             System.out.println(currentPlayer.getName()+"'s saved Code has been loaded");
-            System.out.println("Enter Your guess:\nType 'give up' to show the correct code\nType 'save code' to save the current code:");
+            System.out.println("Enter Your guess:\nType 'give up' to show the correct code\nType 'save code' to save the current code: \n input 'hint' to get hint:");
 
             while (running == true) {
                 // take in input from user
@@ -165,6 +180,9 @@ public class Game {
                         }
                     }
 
+                }
+                else if (input.equals("hint")) {
+                    getHint(input);
                 }
                 else {
                     // enter guess does error checks on guess for both num and letter modes
@@ -244,9 +262,9 @@ public class Game {
             // increments player values
             currentPlayer.updateCows(numcows);
             currentPlayer.updateBulls(numbulls);
-            currentPlayer.updateNumCharTotal(4);
+            currentPlayer.updateNumCharTotal(8);
 
-            if (numbulls == 4){
+            if (numbulls == 8){
                 return("Well Done You Are Right");
             }
             else{

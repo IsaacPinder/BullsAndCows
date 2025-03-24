@@ -1,2 +1,1 @@
-John Doe,17,4,28,7,2,quiz,false
-Jane Doe,20,20,56,2,1,Empty,false
+god,8,0,8,2,1,sunbaked,false

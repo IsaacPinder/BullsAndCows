@@ -40,7 +40,7 @@ public class Main {
 
         while (!done) {
 
-            System.out.println("Enter a Number to do operation\n 0:quit \n 1:start-game Numbers-Mode \n 2:start-game Letters-Mode\n 3:view-statistics \n 4:load-saved-code \n");
+            System.out.println("Enter a Number to do operation\n 0:quit \n 1:start-game Numbers-Mode \n 2:start-game Letters-Mode\n 3:view-statistics \n 4:load-saved-code \n 5:view top ten");
 
             input = new java.util.Scanner(System.in).nextLine();
 
@@ -97,6 +97,25 @@ public class Main {
                         gameModeNum = currentPlayer.savedCodeisNum;
                         Game loadedGame = new Game(currentPlayer, gameModeNum);
                         loadedGame.loadGame(currentPlayer.getSavedCode());
+                    }
+
+                    break;
+
+                case "5":
+                    boolean atleastOneStatsStored = false;
+                            int i = 0;
+                    while(!atleastOneStatsStored && i < PlayersArr.getArraySize()){
+                        if(PlayersArr.getPlayer(i).getCodesDeciphered() > 0){
+                            atleastOneStatsStored = true;
+                        }
+                        i ++;
+                    }
+
+                    if (atleastOneStatsStored == true){
+                        PlayersArr.topTen();
+                    }
+                    else{
+                        System.out.println("no one has completed a game yet");
                     }
 
                     break;
