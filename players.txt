@@ -1,1 +1,6 @@
-god,8,0,8,2,1,sunbaked,false
+god3,8,0,8,2,8,Empty,false
+god4,8,0,8,2,5,Empty,false
+god,32,0,32,5,4,sunbaked,false
+god2,8,0,8,2,3,Empty,false
+tool,0,0,0,0,0,Empty,false
+ahhh,0,0,0,0,0,Empty,false

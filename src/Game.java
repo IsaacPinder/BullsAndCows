@@ -8,6 +8,8 @@ public class Game {
 
     // connects player to game for saving/load
     boolean[] hintAtChar = new boolean[8];
+    // last guess is updated when a valid guess is entered
+    // uses defualt value so if the user asks for hint before making aguess till works
     String lastGuess = "--------";
     //true if gamemode is number else false
     boolean gameModeNum;
@@ -21,7 +23,7 @@ public class Game {
     }
 
 
-    public void getHint(String input) {
+    public void getHint() {
         for (int i = 0; i < 8; i++) {
             if(code.charAt(i) != lastGuess.charAt(i) && hintAtChar[i] != true){
                 System.out.println("The correct BULL for charcter " + (i+1) + " is : " + code.charAt(i));
@@ -75,7 +77,7 @@ public class Game {
                 }
             }
             else if (input.equals("hint")) {
-                getHint(input);
+                getHint();
             }
             else {
                 // enter guess does error checks on guess for both num and letter modes
@@ -182,7 +184,7 @@ public class Game {
 
                 }
                 else if (input.equals("hint")) {
-                    getHint(input);
+                    getHint();
                 }
                 else {
                     // enter guess does error checks on guess for both num and letter modes

@@ -112,6 +112,7 @@ public class Main {
                     }
 
                     if (atleastOneStatsStored == true){
+                        PlayersArr.sortPlayers();
                         PlayersArr.topTen();
                     }
                     else{
