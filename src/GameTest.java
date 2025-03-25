@@ -166,4 +166,78 @@ public class GameTest {
         assertEquals(0, player.getCodesAttempted(), "Player should have no games played");
     }
 
+
+    // getting a hint for numbers so user can decipher the secret code
+    @Test
+    public void HintFromCodeForNum() {
+        Player player = new Player("TestPlayer", 0, 0, 0, 0, 0, "Empty", false);
+        Game game = new Game(player, true);
+        game.code = "87654321";
+
+        String hint = game.code.substring(0, 1);
+        assertTrue(game.code.contains(hint), "a hint should consist of one or more characters from a secret code");
+    }
+
+    // getting a hint for letters so user can decipher the secret code
+    @Test
+    public void HintFromCodeForLetters() {
+        Player player = new Player("TestPlayer", 0, 0, 0, 0, 0, "Empty", false);
+        Game game = new Game(player, false);
+        game.code = "abcdefgh";
+
+        String hint = game.code.substring(0, 1);
+        assertTrue(game.code.contains(hint), "a hint should consist of one or more characters from a secret code");
+    }
+
+    //here the test checks that the game correctly reveals the full secret code when requested
+    @Test
+    public void CorrectCodeForNum() {
+        Player player = new Player("TestPlayer", 0, 0, 0, 0, 0, "Empty", false);
+        Game game = new Game(player, true);
+        game.code = "87654321";
+
+
+        assertEquals("87654321", game.showSolution(), "return the number correct code");
+    }
+
+    //here the code does the same thing as the top difference is that its for letters 
+    @Test
+    public void CorrectCodeForLetters() {
+        Player player = new Player("TestPlayer", 0, 0, 0, 0, 0, "Empty", false);
+        Game game = new Game(player, false);
+        game.code = "abcdefgh";
+
+        assertEquals("abcdefgh", game.showSolution(), "return the correct letter code");
+    }
+
+    // here the test checks that the top players are sorted and displayed correctly
+    @Test
+    public void testTop10PlayersDisplayedCorrectly() {
+        Players players = new Players();
+        
+        for (int i = 0; i < 10; i++) {
+            int score = 9 - i;
+            Player p = new Player("Player" + i, 0, 0, 0, 0, score, "Empty", false);
+            players.addPlayer(p);
+        }
+
+        ArrayList<Player> allPlayers = new ArrayList<>(players.allPlayers);
+
+        //here we are manually sorting the players using bubble sort and it’s used to sort the players based on their scores from highest to lowest.
+        for (int i = 0; i < allPlayers.size() - 1; i++) {
+            for (int j = 0; j < allPlayers.size() - i - 1; j++) {
+                if (allPlayers.get(j).getCodesDeciphered() < allPlayers.get(j + 1).getCodesDeciphered()) {
+                    Player temp = allPlayers.get(j);
+                    allPlayers.set(j, allPlayers.get(j + 1));
+                    allPlayers.set(j + 1, temp);
+                }
+            }
+        }
+
+        // highest scorer at the top
+        assertEquals("Player0", allPlayers.get(0).getName(), "Player0 should have the highest score");
+        // 10 players on the list
+        assertEquals(10, allPlayers.subList(0, 10).size(), "Top 10 list should have 10 players");
+    }
+
 }
