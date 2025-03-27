@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -139,7 +140,7 @@ public class GameTest {
         Player player = new Player("TestPlayer", 0, 0, 0, 0, 0, "Empty", false);
         Game game = new Game(player, false);
         game.code = "abcdefgh";
-        String res = game.enterGuess("abcdefgh"); //no bulls
+        String res = game.enterGuess("hgfedcba"); //no bulls
 
         player.incrementCodesAttempted();
         assertEquals(0, player.getBulls(), "Bulls attempts should stay the same");
@@ -221,18 +222,11 @@ public class GameTest {
             players.addPlayer(p);
         }
 
+
+       players.sortPlayers();
+
         ArrayList<Player> allPlayers = new ArrayList<>(players.allPlayers);
 
-        //here we are manually sorting the players using bubble sort and it’s used to sort the players based on their scores from highest to lowest.
-        for (int i = 0; i < allPlayers.size() - 1; i++) {
-            for (int j = 0; j < allPlayers.size() - i - 1; j++) {
-                if (allPlayers.get(j).getCodesDeciphered() < allPlayers.get(j + 1).getCodesDeciphered()) {
-                    Player temp = allPlayers.get(j);
-                    allPlayers.set(j, allPlayers.get(j + 1));
-                    allPlayers.set(j + 1, temp);
-                }
-            }
-        }
 
         // highest scorer at the top
         assertEquals("Player0", allPlayers.get(0).getName(), "Player0 should have the highest score");
